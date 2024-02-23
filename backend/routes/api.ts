@@ -3,9 +3,9 @@ import { generate, previewData, removeData } from "../controllers/generate.ts";
 
 const router = new Router();
 
-router.get("/api/generate", generate);
+router.post("/api/generate", generate);
 router.get("/api/query", previewData);
-router.get("/api/remove", removeData);;
+router.delete("/api/remove", removeData);;
 
 
 export default router;
