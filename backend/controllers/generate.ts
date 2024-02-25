@@ -1,5 +1,4 @@
-import { Status  } from "https://deno.land/x/oak/mod.ts";
-
+import { Status } from "../deps.ts";
 import client from "../config/db.ts";
 
 export async function generate(ctx: any) {
@@ -43,18 +42,13 @@ export async function generate(ctx: any) {
 
         }
 
-
         ctx.response.status = Status.OK;
-        ctx.response.type = "json";
-        ctx.response.headers.set("Content-Type", "application/json");
         ctx.response.body = {
-            status: "success",
-            message: `Successfully processed ${successCount} records.`,
+            message: `Successfully processeds ${successCount} records.`,
         }
     }catch (error) {
         console.error('Error reading data.json:', error);
         ctx.response.status = Status.InternalServerError;
-        ctx.response.type = "json";
         ctx.response.body = { error: 'Internal Server Error' };
     }
     

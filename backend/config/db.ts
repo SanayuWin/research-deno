@@ -1,5 +1,4 @@
-import { Pool } from "https://deno.land/x/postgres@v0.17.0/mod.ts";
-
+import { Pool } from "../deps.ts";
 // Get the connection string from the environment variable "DATABASE_URL"
 const databaseUrl = Deno.env.get("DATABASE_URL")!;
 
