@@ -10,7 +10,7 @@ router.post("/api/generate", async (context) => {
         const numRows: number = idParam ? parseInt(idParam) : 1;
         
         if (isNaN(numRows)) {
-            context.response.status = 400; // Bad Request
+            context.response.status = 400; 
             context.response.body = { error: 'Invalid "id" parameter' };
             return;
         }
