@@ -6,35 +6,56 @@ router.post("/api/generate", async (context) => {
     let successCount = 0;
     let failCount = 0;
     try {
-        const idParam = context.request.url.searchParams.get('id');
-        const numRows: number = idParam ? parseInt(idParam) : 1;
+        // const idParam = context.request.url.searchParams.get('id');
+        // const numRows: number = idParam ? parseInt(idParam) : 1;
         
-        if (isNaN(numRows)) {
-            context.response.status = 400; 
-            context.response.body = { error: 'Invalid "id" parameter' };
-            return;
-        }
-        for(let i = 0; i < numRows; i++){
-            let First_Name: string = generateRandomName();
-            let Last_Name: string = generateRandomName();
-            let Full_Name: string = First_Name + Last_Name;
-            let Email: string = generateRandomEmail(Full_Name);
-            let Date_of_Birth: string = generateRandomDate();
-            let Gender: string = generateRandomGender();
-            let Country: string = generateRandomCountry();
-            let Annual_Income: number = generateRandomIncome();
-            let Registration_Date: string = generateRandomDate();
-            let Purchase_Type: string = generateRandomPurchaseType();
+        // if (isNaN(numRows)) {
+        //     context.response.status = 400; 
+        //     context.response.body = { error: 'Invalid "id" parameter' };
+        //     return;
+        // }
+        // for(let i = 0; i < numRows; i++){
+        //     let First_Name: string = generateRandomName();
+        //     let Last_Name: string = generateRandomName();
+        //     let Full_Name: string = First_Name + Last_Name;
+        //     let Email: string = generateRandomEmail(Full_Name);
+        //     let Date_of_Birth: string = generateRandomDate();
+        //     let Gender: string = generateRandomGender();
+        //     let Country: string = generateRandomCountry();
+        //     let Annual_Income: number = generateRandomIncome();
+        //     let Registration_Date: string = generateRandomDate();
+        //     let Purchase_Type: string = generateRandomPurchaseType();
 
-            try {
-                await db.queryArray("INSERT INTO customers (first_name, last_name, email, date_of_birth, gender, country, annual_income, registration_date, purchase_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)", [First_Name, Last_Name, Email, Date_of_Birth, Gender, Country, Annual_Income, Registration_Date, Purchase_Type]);
-                successCount++;
-            } catch (insertError) {
-                console.error('Error inserting data:', insertError);
-                failCount++;
-            }
+        //     try {
+        //         await db.queryArray("INSERT INTO customers (first_name, last_name, email, date_of_birth, gender, country, annual_income, registration_date, purchase_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)", [First_Name, Last_Name, Email, Date_of_Birth, Gender, Country, Annual_Income, Registration_Date, Purchase_Type]);
+        //         successCount++;
+        //     } catch (insertError) {
+        //         console.error('Error inserting data:', insertError);
+        //         failCount++;
+        //     }
+        // }
+        // context.response.body = { message: `Successfully processeds ${numRows} records.` };
+
+        let First_Name: string = generateRandomName();
+        let Last_Name: string = generateRandomName();
+        let Full_Name: string = First_Name + Last_Name;
+        let Email: string = generateRandomEmail(Full_Name);
+        let Date_of_Birth: string = generateRandomDate();
+        let Gender: string = generateRandomGender();
+        let Country: string = generateRandomCountry();
+        let Annual_Income: number = generateRandomIncome();
+        let Registration_Date: string = generateRandomDate();
+        let Purchase_Type: string = generateRandomPurchaseType();
+
+        try {
+            await db.queryArray("INSERT INTO customers (first_name, last_name, email, date_of_birth, gender, country, annual_income, registration_date, purchase_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)", [First_Name, Last_Name, Email, Date_of_Birth, Gender, Country, Annual_Income, Registration_Date, Purchase_Type]);
+            successCount++;
+        } catch (insertError) {
+            console.error('Error inserting data:', insertError);
+            failCount++;
         }
-        context.response.body = { message: `Successfully processeds ${numRows} records.` };
+        
+        context.response.body = { message: `Successfully processeds` };
         
     } catch (error) {
         console.error('Error ', error);

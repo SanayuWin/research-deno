@@ -1,7 +1,6 @@
 import { Application, Context} from "./deps.ts";
 import apiRouter from "./routes/api.ts";
 
-
 const app = new Application();
 
 app.use(async (ctx: Context, next) => {

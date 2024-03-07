@@ -3,6 +3,6 @@ const databaseUrl = Deno.env.get("DATABASE_URL")!;
 
 const pool = new Pool(databaseUrl, 3, true);
 
-const connection = await pool.connect();
+const db = await pool.connect();
 
-export default connection;
+export default db;
