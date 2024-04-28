@@ -9,7 +9,9 @@ app.use(async (ctx: Context, next) => {
     ctx.response.headers.set("X-Powered-By", "Deno Oak");
     ctx.response.headers.set("Connection", "keep-alive");
     ctx.response.headers.set("Keep-Alive", "timeout=5");
+    ctx.response.headers.set("Access-Control-Allow-Origin", "*");
 });
+
 
 app.use(apiRouter.routes());
 app.use(apiRouter.allowedMethods());

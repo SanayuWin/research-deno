@@ -12,5 +12,6 @@ CREATE TABLE IF NOT EXISTS customers (
     country VARCHAR(100) NOT NULL,
     annual_income DECIMAL(10, 2) NOT NULL,
     registration_date DATE NOT NULL,
-    purchase_type VARCHAR(100) NOT NULL
+    purchase_type VARCHAR(100) NOT NULL,
+    url_temp VARCHAR(255) NOT NULL
 );
