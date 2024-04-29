@@ -37,8 +37,6 @@ router.get("/api/genqrcode", async (context: Context) => {
 });
 
 router.post("/api/generate", async (context) => {
-    let successCount = 0;
-    let failCount = 0;
     try {
         
         let First_Name: string = generateRandomName();
@@ -55,10 +53,8 @@ router.post("/api/generate", async (context) => {
 
         try {
             await db.queryArray("INSERT INTO customers (first_name, last_name, email, date_of_birth, gender, country, annual_income, registration_date, purchase_type, url_temp) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)", [First_Name, Last_Name, Email, Date_of_Birth, Gender, Country, Annual_Income, Registration_Date, Purchase_Type, URL_Temp]);
-            successCount++;
         } catch (insertError) {
             console.error('Error inserting data:', insertError);
-            failCount++;
         }
         
         context.response.body = { message: `Successfully insert` };
