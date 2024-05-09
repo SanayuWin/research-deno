@@ -22,13 +22,18 @@ router.get("/api/genqrcode", async (context: Context) => {
     try {
         
         const result = await db.queryObject('SELECT url_temp FROM customers ORDER BY RANDOM() LIMIT 1');
-        const urlData = result.rows[0].url_temp;
-        const base64Image = await qrcode(urlData);
-        const blob = dataURLtoBlob(base64Image);
+        if (result.rows && result.rows.length > 0) {
+            const urlData = result.rows[0].url_temp;
+            const base64Image = await qrcode(urlData);
+            const blob = dataURLtoBlob(base64Image);
 
-        context.response.body = blob;
-        context.response.headers.set('Content-Type', 'image/png');
-        context.response.headers.set("Content-Disposition", 'attachment; filename=qrcode.png');
+            context.response.body = blob;
+            context.response.headers.set('Content-Type', 'image/png');
+            context.response.headers.set("Content-Disposition", 'attachment; filename=qrcode.png');
+        } else {
+            context.response.status = 404;
+            context.response.body = { error: 'No URL found in the database' };
+        }
     } catch (error) {
         console.error('Error ', error);
         context.response.status = 500; 
