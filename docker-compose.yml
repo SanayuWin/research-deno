@@ -1,14 +1,7 @@
 version: '3'
 services:
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend/src:/app/src
-
   backend:
-    build: ./backend
+    image: sanayuwin/research_deno:latest
     ports:
       - "8087:8087"
     volumes:
